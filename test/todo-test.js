@@ -1,4 +1,6 @@
-import './setup';
+import  './setup';
+
+import { shallow, mount } from 'enzyme';
 
 import React from 'react';
 import Todo from '../app/todo';
@@ -8,9 +10,7 @@ import TestUtils from 'react-addons-test-utils';
 import test from 'tape';
 
 function shallowRenderTodo(todo) {
-  const renderer = TestUtils.createRenderer();
-  renderer.render(<Todo todo={todo} />);
-  return renderer.getRenderOutput();
+  return shallow(<Todo todo={todo} />);
 }
 
 test('Todo component', (t) => {
@@ -20,12 +20,12 @@ test('Todo component', (t) => {
 
     t.test('It renders the text of the todo', (t) => {
       t.plan(1);
-      t.equal(result.props.children[0].props.children, 'Buy Milk');
+      t.equal(result.find('p').text(), 'Buy Milk');
     });
 
     t.test('The todo does not have the done class', (t) => {
       t.plan(1);
-      t.equal(result.props.className.indexOf('done-todo'), -1);
+      t.equal(result.hasClass('done-todo'), false);
     });
   });
 
@@ -35,7 +35,7 @@ test('Todo component', (t) => {
 
     t.test('The todo does have the done class', (t) => {
       t.plan(1);
-      t.ok(result.props.className.indexOf('done-todo') > -1);
+      t.ok(result.hasClass('done-todo'));
     });
   });
 
@@ -45,12 +45,11 @@ test('Todo component', (t) => {
     const doneCallback = (id) => t.equal(id, 1);
     const todo = { id: 1, name: 'Buy Milk', done: false };
 
-    const result = TestUtils.renderIntoDocument(
+    const result = mount(
       <Todo todo={todo} doneChange={doneCallback} />
     );
 
-    const todoText = TestUtils.findRenderedDOMComponentWithTag(result, 'p');
-    TestUtils.Simulate.click(todoText);
+    result.find('p').simulate('click');
   });
 
   t.test('deleting a TODO calls the given prop', (t) => {
@@ -58,11 +57,10 @@ test('Todo component', (t) => {
     const deleteCallback = (id) => t.equal(id, 1);
     const todo = { id: 1, name: 'Buy Milk', done: false };
 
-    const result = TestUtils.renderIntoDocument(
+    const result = mount(
       <Todo todo={todo} deleteTodo={deleteCallback} />
     );
 
-    const todoLink = TestUtils.findRenderedDOMComponentWithTag(result, 'a');
-    TestUtils.Simulate.click(todoLink);
+    result.find('a').simulate('click');
   });
 });

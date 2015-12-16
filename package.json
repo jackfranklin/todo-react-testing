@@ -25,6 +25,7 @@
     "babelify": "^7.2.0",
     "browser-run": "^3.0.5",
     "browserify": "^12.0.1",
+    "enzyme": "^1.2.0",
     "jsdom": "^7.2.1",
     "live-server": "^0.9.0",
     "phantomjs": "^1.9.19",
