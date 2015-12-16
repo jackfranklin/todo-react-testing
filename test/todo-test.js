@@ -5,8 +5,6 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 import Todo from '../app/todo';
 
-import TestUtils from 'react-addons-test-utils';
-
 import test from 'tape';
 
 function shallowRenderTodo(todo) {
