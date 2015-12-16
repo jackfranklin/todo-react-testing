@@ -2,6 +2,12 @@ import React from 'react';
 import Todo from './todo';
 import AddTodo from './add-todo';
 
+import {
+  toggleDone,
+  addTodo,
+  deleteTodo
+} from './state-functions';
+
 export default class Todos extends React.Component {
   constructor(props) {
     super(props);
@@ -15,30 +21,15 @@ export default class Todos extends React.Component {
   }
 
   toggleDone(id) {
-    const todos = this.state.todos.map((todo) => {
-      if (todo.id === id) {
-        todo.done = !todo.done;
-      }
-
-      return todo;
-    });
-
-    this.setState({ todos });
+    this.setState(toggleDone(this.state, id));
   }
 
   addTodo(todo) {
-    const lastTodo = this.state.todos[this.state.todos.length - 1];
-    todo.id = lastTodo.id + 1;
-    todo.done = false;
-    this.setState({
-      todos: this.state.todos.concat([todo])
-    });
+    this.setState(addTodo(this.state, todo));
   }
 
   deleteTodo(id) {
-    this.setState({
-      todos: this.state.todos.filter((todo) => todo.id !== id)
-    })
+    this.setState(deleteTodo(this.state, id));
   }
 
   renderTodos() {
