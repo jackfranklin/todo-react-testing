@@ -7,7 +7,7 @@
     "watch": "webpack -w",
     "start": "live-server",
     "test": "babel-tape-runner test/*-test.js",
-    "browser-test": "browserify test/*-test.js -t [ babelify --presets [ es2015 react ] ] | tape-run"
+    "browser-test": "browserify test/*-test.js -t [ babelify --presets [ es2015 react ] ] -u 'react/lib/ReactContext' -u 'react/lib/ExecutionEnvironment' | tape-run"
   },
   "keywords": [],
   "author": "",
