@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack -w",
     "start": "live-server",
-    "test": "tape -r babel-register test/*-test.js | faucet",
+    "test": "tape -r ./test/babel-register-setup test/*-test.js | faucet",
     "browser-test": "browserify test/*-test.js -t [ babelify --presets [ es2015 react ] ] -u 'react/lib/ReactContext' -u 'react/lib/ExecutionEnvironment' | tape-run -b chrome"
   },
   "keywords": [],
